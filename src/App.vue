@@ -4,6 +4,7 @@
       <router-link to="/customers">Customers </router-link>
       <router-link to="/products">Products </router-link>
     </nav>
+    <router-view />
   </div>
 </template>
 
