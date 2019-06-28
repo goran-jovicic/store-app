@@ -4,14 +4,27 @@ import App from './App.vue'
 
 import AppCustomers from '@/components/AppCustomers'
 import AppProducts from '@/components/AppProducts'
+import LatestPurchases from '@/components/LatestPurchases'
 
 Vue.config.productionTip = false
 
 Vue.use(VueRouter)
 
 const routes = [
-  { path: '/customers', component: AppCustomers },
-  { path: '/products', component: AppProducts }
+  { 
+    path: '/products', 
+    component: AppProducts
+  },
+  { 
+    path: '/customers', 
+    component: AppCustomers,
+    children : [
+      {
+      path: ':id', 
+      component: LatestPurchases
+      }
+    ]
+  },
 ]
 
 const router = new VueRouter({

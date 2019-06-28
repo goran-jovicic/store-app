@@ -2,8 +2,9 @@
   <div>
     <ul>
       <li v-for="(customer,index) in customers" :key="index">
-        {{ `${customer.id} ${customer.fullName} ${customer.email}` }}
-      <button @click="handleRemove(customer)">Remove Customer</button>
+        {{ `${customer.id} ${customer.fullName} ${customer.email}` }} 
+      <router-link :to="latestPurchases(customer)">Latest Purchases </router-link>
+      <button @click="handleRemove(customer)">Remove Customer</button>   
       </li>
     </ul>
     <form @submit.prevent="handleAdd(newCustomer)">
@@ -19,6 +20,7 @@
         <button type="submit">Add contact</button>
       </div>
     </form>
+    <router-view />
   </div>
 </template>
 
@@ -38,7 +40,7 @@ export default {
       customerService.remove(customer)
     },
 
-    handleAdd (newCustomer){
+    handleAdd (newCustomer) {
       customerService.add(newCustomer)
       this.newCustomer = this.getDefault()
     },
@@ -50,6 +52,10 @@ export default {
         email : '',
         products: []
       }
+    },
+
+    latestPurchases (customer) {
+      return `/customers/${customer.id}`
     }
   }
 }
