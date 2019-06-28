@@ -2,7 +2,9 @@
 	<div>
 		<ul>
 			<li v-for="(product,index) in filteredArr" :key="index">
-				{{ `${product.id} ${product.name} ${product.quantity}`}}
+				{{ `${product.name} currently stocked : ${product.quantity}`}}
+				<button @click="incrementProduct(product)">+</button>
+				<button @click="decrementProduct(product)">-</button>
 			</li>
 		</ul>
 		<input type="text" placeholder="Search.." v-model="term">
@@ -22,12 +24,19 @@ export default {
 	},
 
 	methods : {
+		incrementProduct (product) {
+			productService.increment(product)
+		},
+
+		decrementProduct (product) {
+			productService.decrement(product)
+		}
 	},
 
 	computed : {
 		filteredArr () {
 			return this.products.filter(product => {
-				return product.name.includes(this.term)
+				return product.name.toLowerCase().includes(this.term.toLowerCase())
 			})
 		}
 	}
